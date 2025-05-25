@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MSP Construction & Property</title>
+<style>
+  /* Google Fonts Import */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    color: #22223b;
+    background: #f8fafc;
+    min-height: 100vh;
+  }
+
+  header {
+    background: #1e3a8a;
+    color: #fff;
+    padding: 1.2rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(30,58,138,0.07);
+  }
+
+  .container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: #fbbf24;
+    text-shadow: 0 2px 8px rgba(30,58,138,0.08);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.2rem;
+  }
+
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.08rem;
+    letter-spacing: 1px;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.25s, border-color 0.25s;
+  }
+
+  nav ul li a:hover,
+  nav ul li a:focus {
+    color: #fbbf24;
+    border-bottom: 2px solid #fbbf24;
+    outline: none;
+  }
+
+  .hero {
+    background: linear-gradient(rgba(30,58,138,0.7), rgba(30,58,138,0.6)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1450&q=80') no-repeat center center/cover;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    padding: 0 2rem;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 5vh;
+  }
+
+  .hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 0 4px 24px rgba(30,58,138,0.18);
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2.2rem;
+    color: #fbbf24;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(30,58,138,0.18);
+  }
+
+  .btn-primary {
+    background-color: #fbbf24;
+    color: #1e3a8a;
+    padding: 0.9rem 2.2rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 1.08rem;
+    box-shadow: 0 2px 12px rgba(251,191,36,0.13);
+    transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background: #f59e0b;
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(251,191,36,0.18);
+  }
+
+  section {
+    padding: 4rem 2rem;
+  }
+
+  h2.section-title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #1e3a8a;
+    margin-bottom: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    font-size: 2.1rem;
+  }
+
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2.2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(30,58,138,0.10);
+    padding: 2.2rem 1.5rem;
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 1.5px solid #f1f5f9;
+  }
+
+  .service-card:hover,
+  .service-card:focus-within {
+    transform: translateY(-8px) scale(1.025);
+    box-shadow: 0 16px 36px rgba(30,58,138,0.16);
+    border-color: #fbbf24;
+  }
+
+  .service-card h3 {
+    color: #1e3a8a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.45rem;
+    letter-spacing: 1px;
+  }
+
+  .service-card p {
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  .portfolio {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 1.7rem;
+  }
+
+  .portfolio-item {
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(30,58,138,0.10);
+    position: relative;
+    cursor: pointer;
+    background: #fff;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+
+  .portfolio-item:hover,
+  .portfolio-item:focus-within {
+    box-shadow: 0 12px 32px rgba(30,58,138,0.18);
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .portfolio-item img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    transition: transform 0.3s;
+    display: block;
+  }
+
+  .portfolio-item:hover img,
+  .portfolio-item:focus-within img {
+    transform: scale(1.08);
+  }
+
+  .portfolio-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(30,58,138,0.92) 80%, rgba(30,58,138,0.0) 100%);
+    color: #fff;
+    padding: 1rem 1.2rem 0.7rem 1.2rem;
+    font-weight: 700;
+    font-size: 1.08rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    letter-spacing: 1px;
+  }
+
+  .portfolio-item:hover .portfolio-caption,
+  .portfolio-item:focus-within .portfolio-caption {
+    opacity: 1;
+  }
+
+  .about {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 3rem 2rem;
+    box-shadow: 0 5px 24px rgba(30,58,138,0.13);
+    line-height: 1.8;
+    color: #444;
+    text-align: center;
+  }
+
+  .about h3 {
+    color: #1e3a8a;
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .contact {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2.7rem 2.2rem;
+    border-radius: 14px;
+    box-shadow: 0 5px 24px rgba(30,58,138,0.13);
+  }
+
+  .contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact label {
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #1e3a8a;
+    text-align: left;
+  }
+
+  .contact input,
+  .contact textarea {
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.3rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.25s;
+    background: #f8fafc;
+    color: #22223b;
+    font-family: inherit;
+  }
+
+  .contact input:focus,
+  .contact textarea:focus {
+    outline: none;
+    border-color: #fbbf24;
+    background: #fffbe7;
+  }
+
+  .contact button {
+    background-color: #1e3a8a;
+    color: #fff;
+    padding: 1rem 0;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 1.08rem;
+    transition: background 0.25s, color 0.25s;
+    box-shadow: 0 2px 12px rgba(30,58,138,0.10);
+  }
+
+  .contact button:hover,
+  .contact button:focus {
+    background-color: #374ea1;
+    color: #fbbf24;
+  }
+
+  footer {
+    background: #1e3a8a;
+    color: #fff;
+    text-align: center;
+    padding: 1.2rem 2rem;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-top: 2rem;
+    box-shadow: 0 -2px 8px rgba(30,58,138,0.07);
+  }
+
+  footer p {
+    margin: 0;
+    font-size: 0.98rem;
+  }
+
+  /* Chatbot Styles */
+  #chatbot-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #fbbf24;
+    color: #1e3a8a;
+    border: none;
+    border-radius: 50%;
+    width: 62px;
+    height: 62px;
+    font-size: 32px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(30,58,138,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+
+  #chatbot-toggle:hover,
+  #chatbot-toggle:focus {
+    background: #1e3a8a;
+    color: #fbbf24;
+    box-shadow: 0 8px 24px rgba(30,58,138,0.22);
+    outline: none;
+  }
+
+  #chatbot {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    width: 340px;
+    max-width: 95vw;
+    height: 440px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(30,58,138,0.22);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1100;
+    font-size: 15px;
+    user-select: none;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  #chatbot.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  #chatbot-header {
+    background-color: #1e3a8a;
+    color: #fff;
+    padding: 18px 0;
+    font-weight: 700;
+    font-size: 19px;
+    text-align: center;
+    position: relative;
+    letter-spacing: 1px;
+    border-bottom: 1.5px solid #fbbf24;
+  }
+
+  #chatbot-close {
+    position: absolute;
+    right: 18px;
+    top: 13px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  #chatbot-close:hover,
+  #chatbot-close:focus {
+    color: #fbbf24;
+    outline: none;
+  }
+
+  #chatbot-messages {
+    flex: 1;
+    padding: 18px 15px 10px 15px;
+    overflow-y: auto;
+    background-color: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .message {
+    max-width: 80%;
+    padding: 11px 16px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(30,58,138,0.07);
+  }
+
+  .message.bot {
+    background-color: #1e3a8a;
+    color: #fff;
+    align-self: flex-start;
+    border-bottom-left-radius: 6px;
+    border-top-right-radius: 16px;
+  }
+
+  .message.user {
+    background-color: #fbbf24;
+    color: #1e3a8a;
+    align-self: flex-end;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 16px;
+  }
+
+  #chatbot-input-area {
+    padding: 13px 15px;
+    border-top: 1.5px solid #e5e7eb;
+    display: flex;
+    gap: 0.7rem;
+    background: #fff;
+  }
+
+  #chatbot-input {
+    flex: 1;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 11px 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #f8fafc;
+  }
+
+  #chatbot-input:focus {
+    border-color: #fbbf24;
+    background: #fffbe7;
+  }
+
+  #chatbot-send {
+    background-color: #1e3a8a;
+    color: #fff;
+    border: none;
+    padding: 0 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  #chatbot-send:disabled {
+    background-color: #6b7baf;
+    cursor: not-allowed;
+  }
+
+  #chatbot-send:hover:not(:disabled),
+  #chatbot-send:focus:not(:disabled) {
+    background-color: #fbbf24;
+    color: #1e3a8a;
+    outline: none;
+  }
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    padding-top: 60px;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #fbbf24;
+    outline: none;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 900px) {
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 0 1rem;
+    }
+    nav ul {
+      gap: 1.2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    header {
+      padding: 1rem 0;
+    }
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+    nav {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+    nav ul {
+      flex-direction: column;
+      gap: 0.8rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: 2.1rem;
+    }
+    .hero-content {
+      padding-top: 2vh;
+    }
+    section {
+      padding: 2.5rem 1rem;
+    }
+    .about {
+      padding: 2rem 1rem;
+    }
+    .contact {
+      padding: 1.5rem 1rem;
+    }
+    #chatbot,
+    #chatbot.open {
+      width: 98vw;
+      right: 1vw;
+      min-width: unset;
+      max-width: 98vw;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .logo {
+      font-size: 1.3rem;
+      letter-spacing: 1.2px;
+    }
+    .hero h1 {
+      font-size: 1.3rem;
+    }
+    .btn-primary {
+      font-size: 0.95rem;
+      padding: 0.7rem 1.2rem;
+    }
+    #chatbot-header {
+      font-size: 1rem;
+      padding: 12px 0;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo">MSP Construction & Property</div>
+    <nav>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Projects</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" id="login-link">Login</a></li>
+      </ul>
+    </nav>
+    <div style="clear:both;"></div>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Building Your Dreams<br />With Excellence</h1>
+    <p>Your trusted partner in construction and property development.</p>
+    <a href="#contact" class="btn-primary">Get In Touch</a>
+  </div>
+</section>
+
+<section id="services">
+  <h2 class="section-title">Our Services</h2>
+  <div class="services container">
+    <div class="service-card">
+      <h3>Construction</h3>
+      <p>From residential homes to commercial buildings, we deliver quality and safety in every brick laid.</p>
+    </div>
+    <div class="service-card">
+      <h3>Property Development</h3>
+      <p>We provide end-to-end property development solutions, turning ideas into thriving communities.</p>
+    </div>
+    <div class="service-card">
+      <h3>Consulting</h3>
+      <p>Our expert consulting services ensure your projects are efficient, compliant, and profitable.</p>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <h2 class="section-title">Our Projects</h2>
+  <div class="portfolio container portfolio-grid">
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80" alt="Modern House Project" />
+      <div class="portfolio-caption">Modern Residential Housing</div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80" alt="Commercial Building" />
+      <div class="portfolio-caption">Commercial Building Development</div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1556740766-0591d3b2b2d9?auto=format&fit=crop&w=800&q=80" alt="Urban Project" />
+      <div class="portfolio-caption">Urban Complex Project</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2 class="section-title">About MSP</h2>
+  <div class="about container">
+    <h3>Your construction and property partner</h3>
+    <p>With decades of combined experience, MSP Construction and Property is committed to delivering excellence in every project. We blend innovation, quality, and reliability to build sustainable and impressive structures. Our team guides you from concept to completion with unwavering dedication to your vision.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="section-title">Contact Us</h2>
+  <div class="contact container">
+    <form id="contact-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="email@example.com" required />
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Your message here..." required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2024 MSP Construction & Property. All rights reserved.</p>
+</footer>
+
+<!-- Chatbot button -->
+<button id="chatbot-toggle" aria-label="Toggle Chatbot">💬</button>
+
+<!-- Chatbot widget -->
+<div id="chatbot" aria-live="polite" aria-atomic="true" role="region" aria-label="MSP Chatbot Assistance">
+  <div id="chatbot-header">
+    MSP Assistant
+    <button id="chatbot-close" aria-label="Close Chatbot">&times;</button>
+  </div>
+  <div id="chatbot-messages" role="log"></div>
+  <div id="chatbot-input-area">
+    <input id="chatbot-input" type="text" placeholder="Ask me about MSP..." aria-label="Type your question here" />
+    <button id="chatbot-send" disabled aria-label="Send message">Send</button>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="login-modal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <span class="close" id="close-login-modal" tabindex="0" aria-label="Close Login">&times;</span>
+    <h2>Login</h2>
+    <form id="login-form" autocomplete="off">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" name="login-email" required placeholder="you@email.com" />
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" name="login-password" required placeholder="Password" />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Simple form submission handler: just prevent default and show a popup.
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for contacting MSP Construction & Property! We will get back to you shortly.');
+    this.reset();
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e){
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Chatbot functionality
+  (function(){
+    const toggleBtn = document.getElementById('chatbot-toggle');
+    const chatbot = document.getElementById('chatbot');
+    const closeBtn = document.getElementById('chatbot-close');
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const input = document.getElementById('chatbot-input');
+    const sendBtn = document.getElementById('chatbot-send');
+
+    // Preset Q&A for "AI" responses
+    const knowledgeBase = [
+      {
+        keywords: ['services', 'offer', 'service', 'do you offer'],
+        response: "We offer Construction, Property Development, and Consulting services tailored to your needs."
+      },
+      {
+        keywords: ['construction', 'build', 'building'],
+        response: "Our construction team specializes in residential and commercial buildings with quality and safety."
+      },
+      {
+        keywords: ['property', 'development', 'developer'],
+        response: "We provide comprehensive property development solutions from planning to completion."
+      },
+      {
+        keywords: ['consulting', 'advice', 'guidance'],
+        response: "Our expert consultants help ensure your projects are efficient, compliant, and profitable."
+      },
+      {
+        keywords: ['contact', 'reach', 'talk', 'email', 'phone'],
+        response: "You can contact us via our contact form or email us at contact@mspconstruction.com."
+      },
+      {
+        keywords: ['project', 'portfolio', 'work', 'example'],
+        response: "Feel free to check our projects section showcasing modern housing and commercial developments."
+      },
+      {
+        keywords: ['price', 'cost', 'estimate'],
+        response: "Pricing depends on the project scope. Contact us directly for a personalized estimate."
+      },
+      {
+        keywords: ['location', 'where', 'address'],
+        response: "We are located in [Your City]. Reach out to us for exact details or site visits."
+      },
+    ];
+
+    function scrollToBottom(){
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function addMessage(text, sender = 'bot'){
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', sender);
+      msgDiv.textContent = text;
+      messagesContainer.appendChild(msgDiv);
+      scrollToBottom();
+    }
+
+    function getBotResponse(userMsg) {
+      const msgLower = userMsg.toLowerCase();
+      for(let i=0; i < knowledgeBase.length; i++){
+        const entry = knowledgeBase[i];
+        if(entry.keywords.some(keyword => msgLower.includes(keyword))){
+          return entry.response;
+        }
+      }
+      return "I'm sorry, I didn't understand that. Could you please rephrase or ask something else about MSP Construction & Property?";
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      chatbot.classList.toggle('open');
+      if(chatbot.classList.contains('open')){
+        input.focus();
+      }
+    });
+    closeBtn.addEventListener('click', () => {
+      chatbot.classList.remove('open');
+      toggleBtn.focus();
+    });
+
+    input.addEventListener('input', () => {
+      sendBtn.disabled = input.value.trim() === '';
+    });
+
+    function sendMessage(){
+      const userMsg = input.value.trim();
+      if(userMsg === '') return;
+      addMessage(userMsg, 'user');
+      input.value = '';
+      sendBtn.disabled = true;
+      // Simulate AI response delay
+      setTimeout(() => {
+        const botReply = getBotResponse(userMsg);
+        addMessage(botReply, 'bot');
+      }, 700);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !sendBtn.disabled) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Greet user on open
+    toggleBtn.addEventListener('click', () => {
+      if(!chatbot.classList.contains('greeted')){
+        setTimeout(() => {
+          addMessage("Hello! I'm MSP Assistant 🤖. Ask me anything about our construction and property services!", 'bot');
+          chatbot.classList.add('greeted');
+        }, 600);
+      }
+    });
+  })();
+
+  // Login modal functionality
+  (function(){
+    const loginLink = document.getElementById('login-link');
+    const loginModal = document.getElementById('login-modal');
+    const closeLoginModal = document.getElementById('close-login-modal');
+
+    loginLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginModal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeLoginModal.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        loginModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
+
